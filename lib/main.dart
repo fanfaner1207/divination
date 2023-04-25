@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'tabs/astrology.dart';
-import 'tabs/webrtc.dart';
+import 'tabs/badfriend.dart';
+// import 'tabs/webrtc.dart';
 
 void main() {
-  checkPlatform();
+  // checkPlatform();
   runApp(const MyApp());
 }
 
@@ -37,7 +38,8 @@ class _MystatefulwidgetState extends State<Mystatefulwidget> {
   static const List _widgetOptions = [
     Astrology(),
     Text('塔羅', style: optionStyle),
-    Webrtc()
+    Badfriend(),
+    // Webrtc()
   ];
 
   @override
@@ -51,7 +53,8 @@ class _MystatefulwidgetState extends State<Mystatefulwidget> {
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(icon: Icon(Icons.star), label: '占星'),
             BottomNavigationBarItem(icon: Icon(Icons.star), label: '塔羅'),
-            BottomNavigationBarItem(icon: Icon(Icons.star), label: '視訊'),
+            BottomNavigationBarItem(icon: Icon(Icons.star), label: '月曆'),
+            // BottomNavigationBarItem(icon: Icon(Icons.star), label: '視訊'),
           ],
           currentIndex: _setectedIndex,
           selectedItemColor: const Color.fromARGB(255, 9, 160, 219),

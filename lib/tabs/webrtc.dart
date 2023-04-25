@@ -1,103 +1,99 @@
-// ignore_for_file: prefer_const_constructors
+// import 'package:flutter/foundation.dart';
+// import 'package:flutter/material.dart';
+// import 'package:flutter_background/flutter_background.dart';
+// import 'package:flutter_webrtc/flutter_webrtc.dart';
 
-import 'dart:html';
-import 'dart:js';
+// typedef RouteCallback = void Function(BuildContext context);
 
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_background/flutter_background.dart';
-import 'package:flutter_webrtc/flutter_webrtc.dart';
+// class RouteItem {
+//   RouteItem({
+//     required this.title,
+//     this.subtitle,
+//     this.push,
+//   });
 
-typedef RouteCallback = void Function(BuildContext context);
+//   final String title; //declaration
+//   final String? subtitle;//可空性（nullability）
+//   final RouteCallback? push;
+// }
 
-class RouteItem {
-  RouteItem({
-    required this.title,
-    this.subtitle,
-    this.push,
-  });
+// void checkPlatform() {
+//   if (WebRTC.platformIsDesktop) {
+//     debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia;
+//   } else if (WebRTC.platformIsAndroid) {
+//     WidgetsFlutterBinding.ensureInitialized();
+//     startForegroundService();
+//   }
+// }
 
-  final String title; //declaration
-  final String? subtitle;
-  final RouteCallback? push;
-}
+// void _initItems() {
+//   items = <RouteItem>[
+//     RouteItem(
+//         title: 'GetUserMedia',
+//         push: (BuildContext context) {
+//           Navigator.push(
+//               context,
+//               MaterialPageRoute(
+//                   builder: (BuildContext context) => GetuserMediaSample()));
+//         })
+//   ];
+// }
 
-void checkPlatform() {
-  if (WebRTC.platformIsDesktop) {
-    debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia;
-  } else if (WebRTC.platformIsAndroid) {
-    WidgetsFlutterBinding.ensureInitialized();
-    startForegroundService();
-  }
-}
-void _initItems(){
-  items = <RouteItem>[
-    RouteItem(
-      title: 'GetUserMedia',
-      push: (BuildContext context){
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (BuildContext context)=>
-      GetuserMediaSample())
-      }))
-    })
-  ]65
-}
-Future<bool> startForegroundService() async {
-  final androidConfig = FlutterBackgroundAndroidConfig(
-    notificationTitle: 'Title',
-    notificationText: 'text',
-    notificationImportance: AndroidNotificationImportance.Default,
-    notificationIcon:
-        AndroidResource(name: 'background_icon', defType: 'drawable'),
-  );
-  await FlutterBackground.initialize(androidConfig: androidConfig);
-  return FlutterBackground.enableBackgroundExecution();
-}
+// Future<bool> startForegroundService() async {
+//   final androidConfig = FlutterBackgroundAndroidConfig(
+//     notificationTitle: 'Title',
+//     notificationText: 'text',
+//     notificationImportance: AndroidNotificationImportance.Default,
+//     notificationIcon:
+//         AndroidResource(name: 'background_icon', defType: 'drawable'),
+//   );
+//   await FlutterBackground.initialize(androidConfig: androidConfig);
+//   return FlutterBackground.enableBackgroundExecution();
+// }
 
-class Webrtc extends StatefulWidget {
-  const Webrtc({super.key});
+// class Webrtc extends StatefulWidget {
+//   const Webrtc({super.key});
 
-  @override
-  State<Webrtc> createState() => _WebrtcState();
-}
+//   @override
+//   State<Webrtc> createState() => _WebrtcState();
+// }
 
-class _WebrtcState extends State<Webrtc> {
-  late List<RouteItem> items;
+// class _WebrtcState extends State<Webrtc> {
+//   late List<RouteItem> items;
 
-  @override
-  void iniState() {
-    super.initState();
-    _initItems();
-  }
+//   @override
+//   void iniState() {
+//     super.initState();
+//     _initItems();
+//   }
 
-  ListBody _buildRow(context, item) {
-    return ListBody(children: <Widget>[
-      ListTile(
-        title: Text(item.title),
-        onTap: () => item.push(context),
-        trailing: Icon(Icons.arrow_right),
-      ),
-      Divider()
-    ]);
-  }
+//   ListBody _buildRow(context, item) {
+//     return ListBody(children: <Widget>[
+//       ListTile(
+//         title: Text(item.title),
+//         onTap: () => item.push(context),
+//         trailing: Icon(Icons.arrow_right),
+//       ),
+//       Divider()
+//     ]);
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(
-          appBar: AppBar(
-            title: Text('FLutter-WebRTC example'),
-          ),
-          body: ListView.builder(
-            shrinkWrap: true,
-            padding: const EdgeInsets.all(0.0),
-            itemCount: items.length,
-            itemBuilder: (context, i) {
-              return _buildRow(context, items[i]);
-            },
-          ),
-        ));
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//         debugShowCheckedModeBanner: false,
+//         home: Scaffold(
+//           appBar: AppBar(
+//             title: Text('FLutter-WebRTC example'),
+//           ),
+//           body: ListView.builder(
+//             shrinkWrap: true,
+//             padding: const EdgeInsets.all(0.0),
+//             itemCount: items.length,
+//             itemBuilder: (context, i) {
+//               return _buildRow(context, items[i]);
+//             },
+//           ),
+//         ));
+//   }
+// }
