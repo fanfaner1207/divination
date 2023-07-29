@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'tabs/astrology.dart';
 
+// TODO global 字型
+
 void main() {
   runApp(const MyApp());
 }
@@ -41,7 +43,8 @@ class _MystatefulwidgetState extends State<Mystatefulwidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('寶寶輔助器'),
+        title: const Text('小玉妹妹&釩哥哥的天地', textAlign: TextAlign.center),
+        backgroundColor: const Color.fromRGBO(234, 100, 163, 1),
       ),
       body: Center(child: _widgetOptions.elementAt(_setectedIndex)),
       bottomNavigationBar: BottomNavigationBar(
@@ -50,7 +53,7 @@ class _MystatefulwidgetState extends State<Mystatefulwidget> {
             BottomNavigationBarItem(icon: Icon(Icons.star), label: '塔羅'),
           ],
           currentIndex: _setectedIndex,
-          selectedItemColor: const Color.fromARGB(255, 9, 160, 219),
+          selectedItemColor: const Color.fromRGBO(234, 100, 163, 1),
           onTap: (int index) {
             setState(() {
               _setectedIndex = index;
