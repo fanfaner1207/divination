@@ -14,7 +14,6 @@ import '../data/constants.dart';
 BottomDrawerController controller = BottomDrawerController();
 Widget buildBottomDrawer(BuildContext context) {
   return BottomDrawer(
-    /// your customized drawer header.
     header: const Center(
         child: Text(
       "歷史紀錄",
@@ -22,7 +21,6 @@ Widget buildBottomDrawer(BuildContext context) {
           fontFamily: "NotoSansTC", fontSize: 18, fontWeight: FontWeight.w500),
     )),
 
-    /// your customized drawer body.
     body: ListView.builder(
         itemCount: history.length,
         itemBuilder: (context, index) {
@@ -51,10 +49,6 @@ class Astrology extends StatefulWidget {
   @override
   State<Astrology> createState() => _AstrologyState();
 }
-
-List<Widget> testhistory = const [
-  TableCell(child: Center(child: Text('John'))),
-];
 
 class _AstrologyState extends State<Astrology> {
   void addHistory() {
@@ -91,9 +85,23 @@ class _AstrologyState extends State<Astrology> {
                 child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                Text('$_house宮'),
-                Text('${planet[_planetNum]}'),
-                Text('${starSign[_starSignNum]}'),
+                DataTable(columns: const [
+                  DataColumn(label: Text('項目')),
+                  DataColumn(label: Text('抽取'))
+                ], rows: [
+                  DataRow(cells: [
+                    const DataCell(Text('宮位')),
+                    DataCell(Text('$_house宮'))
+                  ]),
+                  DataRow(cells: [
+                    const DataCell(Text('守護星')),
+                    DataCell(Text('${planet[_planetNum]}'))
+                  ]),
+                  DataRow(cells: [
+                    const DataCell(Text('星座')),
+                    DataCell(Text('${starSign[_starSignNum]}'))
+                  ]),
+                ])
               ],
             )),
             buildBottomDrawer(context)

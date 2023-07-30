@@ -12,9 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-          // primarySwatch: Colors.pink,
-          visualDensity: VisualDensity.comfortable,
-          fontFamily: "NotoSansTC"),
+          visualDensity: VisualDensity.comfortable, fontFamily: "NotoSansTC"),
       home: const Mystatefulwidget(),
     );
   }
