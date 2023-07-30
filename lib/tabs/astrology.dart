@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import '../data/constants.dart';
 
 // 歷史紀錄
-// 1.要有時間 V
-// 2.可以刪除
-// 3.永久記得
-// 4.靠左但要有一點空格 V
-// 5."現在沒有喔"隨著抽第一次刪除 V
-// 6.中間的字體變大、變成一個表
+// 靠左但要有一點空格 V
+// "現在沒有喔"隨著抽第一次刪除 V
+// 中間的字體變大、變成一個表 V
+// 要有時間 V
+// 可以刪除
+// 永久記得
+// 針對每行可以手動備註
+// Datatable要修改文字大小
 
 BottomDrawerController controller = BottomDrawerController();
 Widget buildBottomDrawer(BuildContext context) {
@@ -75,7 +77,14 @@ class _AstrologyState extends State<Astrology> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Center(child: Text('飛星卡')),
+          title: const Center(
+              child: Text('飛星卡',
+                  style: TextStyle(fontSize: 18, shadows: [
+                    Shadow(
+                        offset: Offset(0.5, 0.5),
+                        blurRadius: 3.0,
+                        color: Colors.grey)
+                  ]))),
           backgroundColor: const Color.fromARGB(255, 255, 192, 209),
           // titleTextStyle:
         ),
