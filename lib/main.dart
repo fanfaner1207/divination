@@ -1,26 +1,18 @@
 import 'package:flutter/material.dart';
 import 'tabs/astrology.dart';
 import 'tabs/badfriend.dart';
-// import 'tabs/webrtc.dart';
-
-// TODO global 字型
 
 void main() {
-  // checkPlatform();
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
-  static const String _title = 'test';
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: _title,
       theme: ThemeData(
-          primarySwatch: Colors.blue,
+          // primarySwatch: Colors.pink,
           visualDensity: VisualDensity.comfortable,
           fontFamily: "NotoSansTC"),
       home: const Mystatefulwidget(),

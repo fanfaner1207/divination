@@ -1,46 +1,15 @@
 import 'dart:math';
 import 'package:bottom_drawer/bottom_drawer.dart';
 import 'package:flutter/material.dart';
-
-const List planet = [
-  "月亮",
-  "太陽",
-  "水星",
-  "金星",
-  "火星",
-  "木星",
-  "土星",
-  "天王星",
-  "海王星",
-  "冥王星",
-  "星球"
-];
-const List starSign = [
-  '牡羊座',
-  '金牛座',
-  '雙子座',
-  '巨蟹座',
-  '獅子座',
-  '處女座',
-  '天秤座',
-  '天蠍座',
-  '射手座',
-  '摩羯座',
-  '水瓶座',
-  '雙魚座',
-  '星座'
-];
-List<String> history = [
-  '目前沒有喔',
-];
+import '../data/constants.dart';
 
 // 歷史紀錄
 // 1.要有時間 V
 // 2.可以刪除
 // 3.永久記得
-// 4.靠左但要有一點空格
-// 5."現在沒有喔"隨著抽第一次刪除
-// 6.中間的字體變大
+// 4.靠左但要有一點空格 V
+// 5."現在沒有喔"隨著抽第一次刪除 V
+// 6.中間的字體變大、變成一個表
 
 BottomDrawerController controller = BottomDrawerController();
 Widget buildBottomDrawer(BuildContext context) {
@@ -50,10 +19,7 @@ Widget buildBottomDrawer(BuildContext context) {
         child: Text(
       "歷史紀錄",
       style: TextStyle(
-          // TODO 修改成只有字體大小
-          fontFamily: "NotoSansTC",
-          fontSize: 18,
-          fontWeight: FontWeight.w500),
+          fontFamily: "NotoSansTC", fontSize: 18, fontWeight: FontWeight.w500),
     )),
 
     /// your customized drawer body.
