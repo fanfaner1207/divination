@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:bottom_drawer/bottom_drawer.dart';
 import 'package:flutter/material.dart';
 
@@ -93,7 +92,7 @@ List<Widget> testhistory = const [
 
 class _AstrologyState extends State<Astrology> {
   void addHistory() {
-    String time = DateTime.now().toString().split('.')[0];    
+    String time = DateTime.now().toString().split('.')[0];
     _house = Random(DateTime.now().millisecondsSinceEpoch).nextInt(12) + 1; //宮位
     _planetNum = Random(DateTime.now().millisecondsSinceEpoch).nextInt(10);
     _starSignNum = Random(DateTime.now().millisecondsSinceEpoch).nextInt(12);
@@ -121,7 +120,7 @@ class _AstrologyState extends State<Astrology> {
           // titleTextStyle:
         ),
         body: Stack(
-          children: [ 
+          children: [
             Center(
                 child: Column(
               mainAxisSize: MainAxisSize.max,

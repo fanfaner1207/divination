@@ -17,16 +17,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: _title,theme: ThemeData(
-      primarySwatch: Colors.blue,
-      visualDensity: VisualDensity.comfortable,
-      fontFamily: "PingFang",
-      textTheme: TextTheme(
-        
-      )),
-      home: Mystatefulwidget(),
-
+    return MaterialApp(
+      title: _title,
+      theme: ThemeData(
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.comfortable,
+          fontFamily: "NotoSansTC"),
+      home: const Mystatefulwidget(),
     );
   }
 }
