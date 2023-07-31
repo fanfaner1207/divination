@@ -80,9 +80,6 @@ class _AstrologyState extends State<Astrology> {
     }
   }
 
-  // int _starSignNum = 12;
-  // int _planetNum = 10;
-  // int _house = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,8 +104,16 @@ class _AstrologyState extends State<Astrology> {
                     columnSpacing: 30,
                     headingRowHeight: 40,
                     dataRowMinHeight: 40,
-                    // headingTextStyle: const TextStyle(fontSize: 18),
-                    // dataTextStyle: const TextStyle(fontSize: 18),
+                    headingTextStyle: const TextStyle(
+                        fontSize: 20,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: "NotoSansTC"),
+                    dataTextStyle: const TextStyle(
+                        fontSize: 18,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w300,
+                        fontFamily: "NotoSansTC"),
                     columns: const [
                       DataColumn(label: Text('項目')),
                       DataColumn(label: Text('抽取'))
@@ -116,7 +121,6 @@ class _AstrologyState extends State<Astrology> {
                     rows: [
                       DataRow(cells: [
                         const DataCell(Text('守護星')),
-                        // DataCell(Text('${tmp[3]}'))
                         DataCell(Text('${tmp[3]}'))
                       ]),
                       DataRow(cells: [
