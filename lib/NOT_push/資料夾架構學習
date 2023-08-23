@@ -1,0 +1,50 @@
+# 未來資料夾架構
+application(infrastructure與presentation的橋樑)
+presentation(所有場景)
+infrastructure(功能)和domain(輸出資料)
+lib
+├── 
+│   └── navigation_data.dart
+├── blocs
+│   ├── auth_bloc.dart
+│   └── sign_in_bloc.dart
+├── config
+│   └── environment.dart
+    
+├── data
+    └── constants.dart
+│   └── repositories
+│       └── auth_repository.dart
+├── domain
+│   └── models
+│       └── failure.dart
+├── main.dart
+└── presentation
+    ├── router
+    │   └── app_router.dart
+    └── screens
+        ├── home
+        ├── login
+        └── splash
+
+
+lib 目錄：
+lib 目錄是您的 Flutter 應用程序的主要代碼目錄，它包含了應用程序的所有 Dart 代碼文件。您的應用程序的主要邏輯和功能代碼將放置在這個目錄下。
+
+blocs 目錄：
+blocs 目錄通常用於存放應用程序的業務邏輯組件（Bloc）。 Bloc 是一種用於管理狀態和處理業務邏輯的設計模式，將相似的業務邏輯組織在一起。每個 Bloc 可以包含相應的事件和狀態定義。
+
+config 目錄：
+config 目錄通常用於存放應用程序的配置文件，例如環境配置和全局常量。這裡可以放置諸如 environment.dart 這樣的文件，用於管理應用程序的環境變量和配置信息。
+
+data 目錄：
+data 目錄通常用於存放應用程序的數據層相關代碼，例如數據倉庫和數據處理邏輯。在這裡，您可能會將 repositories 子目錄用於存放與數據倉庫相關的代碼，用於處理數據的獲取和存儲。
+
+domain 目錄：
+domain 目錄用於存放應用程序的領域層相關代碼，主要是與應用程序的實體和領域模型相關的定義。這裡可以存放 models 子目錄，用於定義實體類和領域模型。
+
+main.dart 文件：
+main.dart 是應用程序的入口文件，它會初始化應用程序並運行。在 main.dart 中，您可以配置應用程序的主題、路由以及其他必要的初始化設置。
+
+presentation 目錄：
+presentation 目錄用於存放應用程序的表示層（UI）相關代碼，包括用戶界面、頁面和路由。其中 router 子目錄可能包含應用程序的路由管理代碼，而 screens 子目錄則可能包含各個屏幕頁面的代碼。
