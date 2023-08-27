@@ -8,11 +8,7 @@ set(BINARY_NAME "divination")
 
 # Explicitly opt in to modern CMake behaviors to avoid warnings with recent
 # versions of CMake.
-<<<<<<< HEAD
-cmake_policy(SET CMP0063 NEW)
-=======
 cmake_policy(VERSION 3.14...3.25)
->>>>>>> flutter_3.13.0
 
 # Define build configuration option.
 get_property(IS_MULTICONFIG GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG)
@@ -56,10 +52,6 @@ add_subdirectory(${FLUTTER_MANAGED_DIR})
 # Application build; see runner/CMakeLists.txt.
 add_subdirectory("runner")
 
-<<<<<<< HEAD
-=======
-
->>>>>>> flutter_3.13.0
 # Generated plugin build rules, which manage building the plugins and adding
 # them to the application.
 include(flutter/generated_plugins.cmake)
