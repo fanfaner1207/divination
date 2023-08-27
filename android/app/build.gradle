@@ -1,3 +1,12 @@
+<<<<<<< HEAD
+=======
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+>>>>>>> flutter_3.13.0
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
@@ -6,11 +15,14 @@ if (localPropertiesFile.exists()) {
     }
 }
 
+<<<<<<< HEAD
 def flutterRoot = localProperties.getProperty('flutter.sdk')
 if (flutterRoot == null) {
     throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
 }
 
+=======
+>>>>>>> flutter_3.13.0
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 if (flutterVersionCode == null) {
     flutterVersionCode = '1'
@@ -21,6 +33,7 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
+<<<<<<< HEAD
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
@@ -32,6 +45,10 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
+=======
+android {
+    namespace "com.example.divination"
+>>>>>>> flutter_3.13.0
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
@@ -52,12 +69,18 @@ android {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.example.divination"
         // You can update the following values to match your application needs.
+<<<<<<< HEAD
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
         minSdkVersion 23
+=======
+        // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
+        minSdkVersion flutter.minSdkVersion
+>>>>>>> flutter_3.13.0
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
+<<<<<<< HEAD
     signingConfigs{
        release {
            keyAlias keystoreProperties['keyAlias']
@@ -66,15 +89,22 @@ android {
            storePassword keystoreProperties['storePassword']
        }
    }
+=======
+
+>>>>>>> flutter_3.13.0
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
+<<<<<<< HEAD
             signingConfig signingConfigs.release
             // minifyEnabled true
             // useProguard true
 
             // proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+=======
+            signingConfig signingConfigs.debug
+>>>>>>> flutter_3.13.0
         }
     }
 }
@@ -83,6 +113,10 @@ flutter {
     source '../..'
 }
 
+<<<<<<< HEAD
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
+=======
+dependencies {}
+>>>>>>> flutter_3.13.0

@@ -11,4 +11,8 @@ PRODUCT_NAME = divination
 PRODUCT_BUNDLE_IDENTIFIER = com.example.divination
 
 // The copyright displayed in application information
+<<<<<<< HEAD
 PRODUCT_COPYRIGHT = Copyright © 2022 com.example. All rights reserved.
+=======
+PRODUCT_COPYRIGHT = Copyright © 2023 com.example. All rights reserved.
+>>>>>>> flutter_3.13.0

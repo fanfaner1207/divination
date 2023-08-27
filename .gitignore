@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 #自己的資料
 NOT_push
+=======
+>>>>>>> flutter_3.13.0
 # Miscellaneous
 *.class
 *.log
@@ -34,9 +37,12 @@ migrate_working_dir/
 .pub/
 /build/
 
+<<<<<<< HEAD
 # Web related
 lib/generated_plugin_registrant.dart
 
+=======
+>>>>>>> flutter_3.13.0
 # Symbolication related
 app.*.symbols
 

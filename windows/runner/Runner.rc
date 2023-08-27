@@ -93,7 +93,11 @@ BEGIN
             VALUE "FileDescription", "divination" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "divination" "\0"
+<<<<<<< HEAD
             VALUE "LegalCopyright", "Copyright (C) 2022 com.example. All rights reserved." "\0"
+=======
+            VALUE "LegalCopyright", "Copyright (C) 2023 com.example. All rights reserved." "\0"
+>>>>>>> flutter_3.13.0
             VALUE "OriginalFilename", "divination.exe" "\0"
             VALUE "ProductName", "divination" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'tabs/astrology.dart';
-import 'tabs/badfriend.dart';
+// import 'tabs/badfriend.dart';
 
 void main() {
   runApp(const MyApp());
@@ -30,7 +30,7 @@ class _MystatefulwidgetState extends State<Mystatefulwidget> {
 
   static const List _widgetOptions = [
     Astrology(),
-    Badfriend(),
+    // Badfriend(),
   ];
 
   @override

@@ -1,12 +1,12 @@
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
 
-class Badfriend extends StatelessWidget {
-  const Badfriend({super.key});
+// class Badfriend extends StatelessWidget {
+//   const Badfriend({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Table(),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Center(
+//       child: Table(),
+//     );
+//   }
+// }

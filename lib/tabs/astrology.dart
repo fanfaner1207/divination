@@ -32,10 +32,10 @@ Widget buildBottomDrawer(BuildContext context) {
         }),
 
     /// your customized drawer header height.
-    headerHeight: 40.0,
+    headerHeight: 45.0,
 
     /// your customized drawer body height.
-    drawerHeight: 300,
+    drawerHeight: 320,
 
     /// drawer background color.
     color: const Color.fromARGB(255, 255, 192, 209),

@@ -28,6 +28,7 @@ class Win32Window {
   Win32Window();
   virtual ~Win32Window();
 
+<<<<<<< HEAD
   // Creates and shows a win32 window with |title| and position and size using
   // |origin| and |size|. New windows are created on the default monitor. Window
   // sizes are specified to the OS in physical pixels, hence to ensure a
@@ -37,6 +38,18 @@ class Win32Window {
   bool CreateAndShow(const std::wstring& title,
                      const Point& origin,
                      const Size& size);
+=======
+  // Creates a win32 window with |title| that is positioned and sized using
+  // |origin| and |size|. New windows are created on the default monitor. Window
+  // sizes are specified to the OS in physical pixels, hence to ensure a
+  // consistent size this function will scale the inputted width and height as
+  // as appropriate for the default monitor. The window is invisible until
+  // |Show| is called. Returns true if the window was created successfully.
+  bool Create(const std::wstring& title, const Point& origin, const Size& size);
+
+  // Show the current window. Returns true if the window was successfully shown.
+  bool Show();
+>>>>>>> flutter_3.13.0
 
   // Release OS resources associated with window.
   void Destroy();
@@ -76,7 +89,11 @@ class Win32Window {
   // OS callback called by message pump. Handles the WM_NCCREATE message which
   // is passed when the non-client area is being created and enables automatic
   // non-client DPI scaling so that the non-client area automatically
+<<<<<<< HEAD
   // responsponds to changes in DPI. All other messages are handled by
+=======
+  // responds to changes in DPI. All other messages are handled by
+>>>>>>> flutter_3.13.0
   // MessageHandler.
   static LRESULT CALLBACK WndProc(HWND const window,
                                   UINT const message,
@@ -86,6 +103,12 @@ class Win32Window {
   // Retrieves a class instance pointer for |window|
   static Win32Window* GetThisFromHandle(HWND const window) noexcept;
 
+<<<<<<< HEAD
+=======
+  // Update the window frame's theme to match the system theme.
+  static void UpdateTheme(HWND const window);
+
+>>>>>>> flutter_3.13.0
   bool quit_on_close_ = false;
 
   // window handle for top level window.
