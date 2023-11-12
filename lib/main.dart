@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'tabs/astrology.dart';
-import 'tabs/badfriend.dart';
-
+import 'tabs/writingassistant.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -30,7 +29,7 @@ class _MystatefulwidgetState extends State<Mystatefulwidget> {
 
   static const List _widgetOptions = [
     Astrology(),
-    Badfriend(),
+    WritingAssistant(),
   ];
 
   @override
@@ -44,7 +43,7 @@ class _MystatefulwidgetState extends State<Mystatefulwidget> {
       bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(icon: Icon(Icons.star), label: '占星'),
-            BottomNavigationBarItem(icon: Icon(Icons.star), label: '月曆'),
+            BottomNavigationBarItem(icon: Icon(Icons.star), label: '寫作輔助器'),
           ],
           currentIndex: _setectedIndex,
           selectedItemColor: const Color.fromRGBO(234, 100, 163, 1),
