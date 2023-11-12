@@ -12,12 +12,12 @@ class WritingAssistant extends StatefulWidget {
 class _WritingAssistantState extends State<WritingAssistant> {
   final Future<SharedPreferences> _prefer = SharedPreferences.getInstance();
   late Future<int> _currentNumber;
-  late Future<String> _everydayUploadWords;
   String dropdownValue = '+';
   var inputNumber = TextEditingController();
   var now = DateTime.now();
   late int originalNow;
   late DateTime datetimePretime = DateTime.now();
+  late Future<TextEditingController> _everydayUploadWordsController;
 
   Future<void> countingWords(int number) async {
     final SharedPreferences prefer = await _prefer;
@@ -50,6 +50,20 @@ class _WritingAssistantState extends State<WritingAssistant> {
     });
   }
 
+  Future<void> setEverydayUploadWords(String str) async {
+    final SharedPreferences prefer = await _prefer;
+    // ??檢查變數是否為空，如果變數不為空，則返回變數的值，否則返回指定的默認值。
+
+    setState(() {
+      prefer.setString('everydayUploadWords', str).then((bool success) {
+        success == true
+            ? debugPrint("set time success")
+            : debugPrint("set time fail");
+        // return time;
+      });
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -58,19 +72,18 @@ class _WritingAssistantState extends State<WritingAssistant> {
       return prefer.getInt('counter') ?? 10000;
     });
 
-    _everydayUploadWords = _prefer.then((SharedPreferences prefer) {
-      return prefer.getString('everydayUploadWords') ?? '0';
+    _everydayUploadWordsController = _prefer.then((SharedPreferences prefer) {
+      return TextEditingController(
+          text: prefer.getString('everydayUploadWords') ?? '1');
     });
 
-    TextEditingController __everydayUploadWordsController =
-        TextEditingController(text: _everydayUploadWords as String);
-
     _prefer.then((SharedPreferences prefer) {
-      originalNow = prefer.getInt('time') as int;
+      originalNow =
+          (prefer.getInt('time') ?? DateTime.now().millisecondsSinceEpoch);
       datetimePretime = DateTime.fromMillisecondsSinceEpoch(originalNow);
       Duration diff = DateTime.now().difference(datetimePretime);
       countingWords(diff.inMinutes * 1);
-      setTime(DateTime.now().millisecondsSinceEpoch); //
+      setTime(DateTime.now().millisecondsSinceEpoch);
     });
   }
 
@@ -148,8 +161,9 @@ class _WritingAssistantState extends State<WritingAssistant> {
                   child: TextField(
                     controller: inputNumber,
                     keyboardType: TextInputType.number,
+                    // textAlign: TextAlign.center,
                     decoration: const InputDecoration(
-                      hintText: '僅可以輸入數字',
+                      hintText: '請輸入數字',
                     ),
                   ),
                 )
@@ -174,47 +188,51 @@ class _WritingAssistantState extends State<WritingAssistant> {
                 child: Column(
                   children: [
                     Container(
-                      padding: const EdgeInsets.fromLTRB(10, 0, 10, 30),
+                      padding: const EdgeInsets.fromLTRB(10, 10, 10, 30),
                       child: Row(
                         children: [
                           const Text('每天增加多少字呢？'),
-                          // FutureBuilder(
-                          //   future: _everydayUploadWords,
-                          //   builder: (BuildContext context,
-                          //       AsyncSnapshot<String> snapshot) {
-                          //     switch (snapshot.connectionState) {
-                          //       case ConnectionState.none:
-                          //       case ConnectionState.waiting:
-                          //         return const CircularProgressIndicator();
-                          //       case ConnectionState.active:
-                          //       case ConnectionState.done:
-                          //         if (snapshot.hasError) {
-                          //           return Text('Error:${snapshot.error}');
-                          //         } else {
-                          //           return Text(
-                          //             style: const TextStyle(
-                          //                 fontSize: 20,
-                          //                 shadows: [
-                          //                   Shadow(
-                          //                       offset: Offset(0.5, 0.5),
-                          //                       blurRadius: 3.0,
-                          //                       color: Colors.grey)
-                          //                 ]),
-                          //             '目前欠的字數喔：${snapshot.data}',
-                          //             textAlign: TextAlign.center,
-                          //           );
-                          //         }
-                          //     }
-                          //   },
-                          // ),
-
-                          //     TextField(
-                          //       controller: _controller,
-                          //   keyboardType: TextInputType.number,
-                          // )                          ),
+                          Expanded(
+                            child: FutureBuilder(
+                              future: _everydayUploadWordsController,
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<TextEditingController>
+                                      snapshot) {
+                                switch (snapshot.connectionState) {
+                                  case ConnectionState.none:
+                                  case ConnectionState.waiting:
+                                    return const CircularProgressIndicator();
+                                  case ConnectionState.active:
+                                  case ConnectionState.done:
+                                    if (snapshot.hasError) {
+                                      return Text('Error:${snapshot.error}');
+                                    } else {
+                                      return TextField(
+                                        textAlign: TextAlign.center,
+                                        controller: snapshot.data,
+                                        keyboardType: TextInputType.number,
+                                        onTap: () {
+                                          snapshot.data?.selection =
+                                              TextSelection(
+                                            baseOffset: 0,
+                                            extentOffset: snapshot
+                                                .data!.value.text.length,
+                                          );
+                                        },
+                                      );
+                                    }
+                                }
+                              },
+                            ),
+                          ),
                           IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.check_circle))
+                            onPressed: () async {
+                              TextEditingController controller =
+                                  await _everydayUploadWordsController;
+                              setEverydayUploadWords(controller.text);
+                            },
+                            icon: const Icon(Icons.check_circle),
+                          )
                         ],
                       ),
                     ),
