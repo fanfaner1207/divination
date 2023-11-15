@@ -78,11 +78,15 @@ class _WritingAssistantState extends State<WritingAssistant> {
     });
 
     _prefer.then((SharedPreferences prefer) {
+      // 每天調整
       originalNow =
           (prefer.getInt('time') ?? DateTime.now().millisecondsSinceEpoch);
       datetimePretime = DateTime.fromMillisecondsSinceEpoch(originalNow);
-      Duration diff = DateTime.now().difference(datetimePretime);
-      countingWords(diff.inMinutes * 1);
+      int days=DateTime.now().day - datetimePretime.day;
+      // Duration diff = DateTime.now().difference(datetimePretime);
+
+      countingWords(days *
+          int.parse(prefer.getString('everydayUploadWords') ?? '1'));
       setTime(DateTime.now().millisecondsSinceEpoch);
     });
   }
@@ -184,11 +188,11 @@ class _WritingAssistantState extends State<WritingAssistant> {
                 // ignore: unnecessary_brace_in_string_interps
                 child: Text('${dropdownValue}字數')),
             Container(
-                padding: const EdgeInsets.fromLTRB(25, 15, 25, 0),
+                padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
                 child: Column(
                   children: [
                     Container(
-                      padding: const EdgeInsets.fromLTRB(10, 10, 10, 30),
+                      padding: const EdgeInsets.fromLTRB(5, 10, 5, 30),
                       child: Row(
                         children: [
                           const Text('每天增加多少字呢？'),
@@ -230,6 +234,9 @@ class _WritingAssistantState extends State<WritingAssistant> {
                               TextEditingController controller =
                                   await _everydayUploadWordsController;
                               setEverydayUploadWords(controller.text);
+                              // ignore: use_build_context_synchronously
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(content: Text('已調整每日要新增的字數')));
                             },
                             icon: const Icon(Icons.check_circle),
                           )

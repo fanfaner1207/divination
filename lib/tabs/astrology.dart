@@ -46,7 +46,7 @@ Widget buildBottomDrawer(BuildContext context) {
 }
 
 class Astrology extends StatefulWidget {
-  const Astrology({Key? key}) : super(key: key);
+  const Astrology({super.key});
 
   @override
   State<Astrology> createState() => _AstrologyState();
