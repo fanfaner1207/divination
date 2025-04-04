@@ -34,10 +34,9 @@ class _DrawingOverlayState extends State<DrawingOverlay> {
       },
       //CustomPaint 繪製軌跡
       //DrawingPainter 負責具體繪製邏輯
-      
-        //RepaintBoundary 包裹 CustomPaint，隔離繪製層的重繪範圍：
-        child: CustomPaint(painter: DrawingPainter(points), child: Container()),
-      
+
+      //RepaintBoundary 包裹 CustomPaint，隔離繪製層的重繪範圍：
+      child: CustomPaint(painter: DrawingPainter(points), child: Container()),
     );
   }
 }
@@ -66,53 +65,7 @@ class DrawingPainter extends CustomPainter {
 
   //shouldRepaint()：永遠返回 true，表示每次重繪時都更新。
   @override
-   bool shouldRepaint(covariant CustomPainter oldDelegate) {
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
     return true;
   }
 }
-
-// class OverlayPage extends StatefulWidget {
-//   final Function(double) onSumOfProductsUpdated;
-//   const OverlayPage({super.key, required this.onSumOfProductsUpdated});
-
-//   @override
-//   State<OverlayPage> createState() => OverlayPageState();
-// }
-
-// // 管理覆蓋層的顯示與隱藏，並將 sumOfProducts 傳遞給父組件。
-// class OverlayPageState extends State<OverlayPage> {
-//   OverlayEntry? overlayEntry;
-
-//   void showOverlay(BuildContext context) {
-//     overlayEntry = OverlayEntry(
-//       builder:
-//           (context) => Positioned(
-//             // top: 200,
-//             // bottom: 200,
-//             // left: 100,
-//             // right: 100,
-//             top: MediaQuery.of(context).size.height * 0.1,
-//             bottom: MediaQuery.of(context).size.height * 0.1,
-//             left: MediaQuery.of(context).size.width * 0.1,
-//             right: MediaQuery.of(context).size.width * 0.1,
-//             child: Container(
-//               // color: Colors.white.withValues(),
-//               color: Colors.white.withOpacity(0.8),
-//               child: DrawingOverlay(
-//                 onDrawingComplete: () {
-//                   overlayEntry?.remove();
-//                 },
-//                 onSumOfProductsUpdated: widget.onSumOfProductsUpdated,
-//               ),
-//             ),
-//           ),
-//     );
-
-//     Overlay.of(context).insert(overlayEntry!);
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return const SizedBox.shrink(); // 此頁面僅用於控制覆蓋層
-//   }
-// }

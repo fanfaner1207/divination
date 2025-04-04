@@ -3,7 +3,7 @@ import 'tabs/astrology.dart';
 import 'tabs/writingassistant.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -12,7 +12,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-          visualDensity: VisualDensity.comfortable, fontFamily: "NotoSansTC"),
+        visualDensity: VisualDensity.comfortable,
+        fontFamily: "NotoSansTC",
+      ),
       home: const Mystatefulwidget(),
     );
   }
@@ -28,10 +30,7 @@ class Mystatefulwidget extends StatefulWidget {
 class _MystatefulwidgetState extends State<Mystatefulwidget> {
   int _setectedIndex = 0;
 
-  static const List _widgetOptions = [
-    Astrology(),
-    WritingAssistant(),
-  ];
+  static const List _widgetOptions = [Astrology(), WritingAssistant()];
 
   @override
   Widget build(BuildContext context) {
@@ -42,17 +41,18 @@ class _MystatefulwidgetState extends State<Mystatefulwidget> {
       ),
       body: Center(child: _widgetOptions.elementAt(_setectedIndex)),
       bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(icon: Icon(Icons.star), label: '占星'),
-            BottomNavigationBarItem(icon: Icon(Icons.star), label: '寫作輔助器'),
-          ],
-          currentIndex: _setectedIndex,
-          selectedItemColor: const Color.fromRGBO(234, 100, 163, 1),
-          onTap: (int index) {
-            setState(() {
-              _setectedIndex = index;
-            });
-          }),
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon: Icon(Icons.star), label: '占星'),
+          BottomNavigationBarItem(icon: Icon(Icons.star), label: '寫作輔助器'),
+        ],
+        currentIndex: _setectedIndex,
+        selectedItemColor: const Color.fromRGBO(234, 100, 163, 1),
+        onTap: (int index) {
+          setState(() {
+            _setectedIndex = index;
+          });
+        },
+      ),
     );
   }
 }

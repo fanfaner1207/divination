@@ -68,7 +68,7 @@ class _AstrologyState extends State<Astrology> {
                 onDrawingComplete: () {
                   _overlayEntry?.remove();
                   _overlayEntry = null;
-                  setState(() {});// 强制刷新畫面
+                  setState(() {}); // 强制刷新畫面
                 },
                 onSumOfProductsUpdated: (sum) {
                   setState(() {
@@ -127,6 +127,7 @@ class _AstrologyState extends State<Astrology> {
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
+                Positioned(top: 500, child: Text('')),
                 DataTable(
                   columnSpacing: 30,
                   headingRowHeight: 40,
