@@ -127,47 +127,49 @@ class _AstrologyState extends State<Astrology> {
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                Positioned(top: 500, child: Text('')),
-                DataTable(
-                  columnSpacing: 30,
-                  headingRowHeight: 40,
-                  dataRowMinHeight: 40,
-                  headingTextStyle: const TextStyle(
-                    fontSize: 20,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w400,
-                    fontFamily: "NotoSansTC",
+                Container(
+                  margin: EdgeInsets.only(top: 50),
+                  child: DataTable(
+                    columnSpacing: 30,
+                    headingRowHeight: 40,
+                    dataRowMinHeight: 40,
+                    headingTextStyle: const TextStyle(
+                      fontSize: 20,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: "NotoSansTC",
+                    ),
+                    dataTextStyle: const TextStyle(
+                      fontSize: 18,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w300,
+                      fontFamily: "NotoSansTC",
+                    ),
+                    columns: const [
+                      DataColumn(label: Text('項目')),
+                      DataColumn(label: Text('抽取')),
+                    ],
+                    rows: [
+                      DataRow(
+                        cells: [
+                          const DataCell(Text('守護星')),
+                          DataCell(Text('${tmp[1]}')),
+                        ],
+                      ),
+                      DataRow(
+                        cells: [
+                          const DataCell(Text('宮位')),
+                          DataCell(Text('${tmp[2]}')),
+                        ],
+                      ),
+                      DataRow(
+                        cells: [
+                          const DataCell(Text('星座')),
+                          DataCell(Text('${tmp[3]}')),
+                        ],
+                      ),
+                    ],
                   ),
-                  dataTextStyle: const TextStyle(
-                    fontSize: 18,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w300,
-                    fontFamily: "NotoSansTC",
-                  ),
-                  columns: const [
-                    DataColumn(label: Text('項目')),
-                    DataColumn(label: Text('抽取')),
-                  ],
-                  rows: [
-                    DataRow(
-                      cells: [
-                        const DataCell(Text('守護星')),
-                        DataCell(Text('${tmp[1]}')),
-                      ],
-                    ),
-                    DataRow(
-                      cells: [
-                        const DataCell(Text('宮位')),
-                        DataCell(Text('${tmp[2]}')),
-                      ],
-                    ),
-                    DataRow(
-                      cells: [
-                        const DataCell(Text('星座')),
-                        DataCell(Text('${tmp[3]}')),
-                      ],
-                    ),
-                  ],
                 ),
               ],
             ),

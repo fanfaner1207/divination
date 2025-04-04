@@ -19,7 +19,7 @@ class _WritingAssistantState extends State<WritingAssistant> {
   var inputNumber = TextEditingController(); //請輸入數字的變數
   String dropdownValue = '+'; //下拉是選單預設為+
   final WritingDB _writingDB = WritingDB();
-/*
+  /*
   Future<void> countingWords(int number) async {
     //final SharedPreferences prefer = await _prefer;
     // ??檢查變數是否為空，如果變數不為空，則返回變數的值，否則返回指定的默認值。
@@ -66,7 +66,7 @@ class _WritingAssistantState extends State<WritingAssistant> {
   }
 */
   late Future<List<Writing>>
-      futureWritings; //late允許延遲初始化一個變數，我們需要在initState()中初始化一個變數
+  futureWritings; //late允許延遲初始化一個變數，我們需要在initState()中初始化一個變數
 
   void fetchWritings() {
     setState(() {
@@ -118,7 +118,7 @@ class _WritingAssistantState extends State<WritingAssistant> {
                 return Text('Error:${snapshot.error}');
               } else {
                 final futureWriting = snapshot.data![0];
-                return Column(children: [
+                /*return Column(children: [
                   Text(
                     style: const TextStyle(fontSize: 20, shadows: [
                       Shadow(
@@ -252,7 +252,88 @@ class _WritingAssistantState extends State<WritingAssistant> {
                           // ),
                         ],
                       )),
-                ]);
+                ]);*/
+                return Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(top: 50), // 控制與上方的距離
+                      child: DataTable(
+                        columnSpacing: 30,
+                        headingRowHeight: 40,
+                        dataRowMinHeight: 40,
+                        headingTextStyle: const TextStyle(
+                          fontSize: 20,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w400,
+                          fontFamily: "NotoSansTC",
+                        ),
+                        dataTextStyle: const TextStyle(
+                          fontSize: 18,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w300,
+                          fontFamily: "NotoSansTC",
+                        ),
+                        columns: const [
+                          DataColumn(label: Text('項目')),
+                          DataColumn(label: Text('資訊')),
+                          DataColumn(label: Text('')),
+                        ],
+                        rows: [
+                          DataRow(
+                            cells: [
+                              const DataCell(Text('目前字數')),
+                              DataCell(Text('1')),
+                              DataCell(
+                                IconButton(
+                                  icon: Icon(Icons.edit),
+                                  onPressed: () {},
+                                ),
+                              ),
+                            ],
+                          ),
+                          DataRow(
+                            cells: [
+                              const DataCell(Text('增加字數(字/天)')),
+                              DataCell(Text('1')),
+                              DataCell(
+                                IconButton(
+                                  icon: Icon(Icons.edit),
+                                  onPressed: () {},
+                                ),
+                              ),
+                            ],
+                          ),
+                          // DataRow(
+                          //   cells: [
+                          //     const DataCell(Text('預測功能')),
+                          //     DataCell(Text('1')),
+                          //     DataCell(Text('1')),
+                          //   ],
+                          // ),
+                          DataRow(
+                            cells: [
+                              const DataCell(Text('上次登入日')),
+                              DataCell(Text('1')),
+                              DataCell(
+                                SizedBox.shrink(),
+                              ), //直接提供空白 widget 可以避免表格生成時因為缺少資料而拋出錯誤。
+                            ],
+                          ),
+                          DataRow(
+                            cells: [
+                              const DataCell(Text('上次登入時間')),
+                              DataCell(Text('1')),
+                              DataCell(
+                                SizedBox.shrink(),
+                              ), //直接提供空白 widget 可以避免表格生成時因為缺少資料而拋出錯誤。
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                );
               }
           }
         },
