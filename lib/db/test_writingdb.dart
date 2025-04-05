@@ -7,7 +7,7 @@ class Writing {
   // id
   final int id;
   // 目前欠的字數
-  final int wordCount;
+  late final int wordCount;
   // 每天增加多少字數
   final int dailyWordIncrement;
   // 改變每天增加多少字數的那一天
@@ -49,7 +49,7 @@ class WritingDB {
 
   static Future<Database> initDatabase() async {
     // 完全刪除現有DB
-    deleteDatabase(join(await getDatabasesPath(), "writing.DB"));
+    // deleteDatabase(join(await getDatabasesPath(), "writing.DB"));
 
     database = await openDatabase(
       join(await getDatabasesPath(), "writing.DB"),

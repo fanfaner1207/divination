@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 // new class
 import '../db/test_writingdb.dart';
-
+import 'package:flutter/services.dart'; //FilteringTextInputFormatter需要
 /* old class
 // import 'package:divination/model/writing.dart';
 // import '../db/db_writing.dart';
@@ -16,13 +16,17 @@ class WritingAssistant extends StatefulWidget {
 }
 
 class _WritingAssistantState extends State<WritingAssistant> {
+  bool isWordCountEditing = false;
+  final inputWordCount = TextEditingController();
+  bool isWordIncrementEditing = false;
+  final inputsWordIncrement = TextEditingController();
   /*
   //todo 從DB撈所有資料(上次登入時間,目前欠的字數,每天增加多少字數)
   // late Future<TextEditingController> _uploadWordsController; //每天增加多少字數
   // late DateTime datetimePretime =
   //     DateTime.now(); //DateTime型別的當前時間 todo應該可以拿掉late
   // var now = DateTime.now(); //當前時間
-  var inputNumber = TextEditingController(); //請輸入數字的變數
+  // 
   String dropdownValue = '+'; //下拉是選單預設為+
   final WritingDB _writingDB = WritingDB();
   /*
@@ -150,7 +154,7 @@ class _WritingAssistantState extends State<WritingAssistant> {
               if (snapshot.hasError) {
                 return Text('Error:${snapshot.error}');
               } else {
-                final listArr = snapshot.data![0];
+                Writing listArr = snapshot.data![0];
                 /*return Column(children: [
                   Text(
                     style: const TextStyle(fontSize: 20, shadows: [
@@ -214,11 +218,7 @@ class _WritingAssistantState extends State<WritingAssistant> {
                           ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(content: Text('臭臭寶寶亂按,明明就沒有數字')));
                         }
-                        if (dropdownValue == '+') {
-                          // countingWords(int.parse(inputNumber.text));
-                        } else {
-                          // countingWords(int.parse(inputNumber.text) * -1);
-                        }
+                        
                       },
                       // ignore: unnecessary_brace_in_string_interps
                       child: Text('${dropdownValue}字數')),
@@ -316,11 +316,44 @@ class _WritingAssistantState extends State<WritingAssistant> {
                           DataRow(
                             cells: [
                               const DataCell(Text('目前字數')),
-                              DataCell(Text(listArr.wordCount.toString())),
+                              DataCell(
+                                isWordCountEditing
+                                    ? TextField(
+                                      controller: inputWordCount,
+                                      keyboardType: TextInputType.number,
+                                      inputFormatters: [
+                                        FilteringTextInputFormatter.digitsOnly,
+                                      ], // 限制只能輸入數字
+                                      decoration: const InputDecoration(
+                                        hintText: '請輸入',
+                                      ),
+                                      autofocus: true,
+                                      onSubmitted: (value) async {
+                                        if (value.isNotEmpty) {
+                                          await WritingDB.updateWriting({
+                                            'wordCount': int.parse(value),
+                                          });
+                                          setState(() {
+                                            Future_List_Writing =
+                                                getwritingdata();
+
+                                            isWordCountEditing =
+                                                !isWordCountEditing;
+                                          });
+                                        }
+                                      },
+                                    )
+                                    : Text(listArr.wordCount.toString()),
+                              ),
+
                               DataCell(
                                 IconButton(
                                   icon: Icon(Icons.edit),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    setState(() {
+                                      isWordCountEditing = !isWordCountEditing;
+                                    });
+                                  },
                                 ),
                               ),
                             ],
@@ -329,23 +362,57 @@ class _WritingAssistantState extends State<WritingAssistant> {
                             cells: [
                               const DataCell(Text('增加字數(字/天)')),
                               DataCell(
-                                Text(listArr.dailyWordIncrement.toString()),
+                                isWordIncrementEditing
+                                    ? TextField(
+                                      controller: inputsWordIncrement,
+                                      keyboardType: TextInputType.number,
+                                      inputFormatters: [
+                                        FilteringTextInputFormatter.digitsOnly,
+                                      ], // 限制只能輸入數字
+                                      decoration: const InputDecoration(
+                                        hintText: '請輸入',
+                                      ),
+                                      autofocus: true,
+                                      onSubmitted: (value) async {
+                                        if (value.isNotEmpty) {
+                                          await WritingDB.updateWriting({
+                                            'dailyWordIncrement': int.parse(
+                                              value,
+                                            ),
+                                            'wordIncrementLastChgDate':
+                                                DateTime.now()
+                                                    .toIso8601String()
+                                                    .split('T')[0],
+                                          });
+                                          setState(() {
+                                            Future_List_Writing =
+                                                getwritingdata();
+
+                                            isWordIncrementEditing =
+                                                !isWordIncrementEditing;
+                                          });
+                                        }
+                                      },
+                                    )
+                                    : Text(
+                                      listArr.dailyWordIncrement.toString(),
+                                    ),
                               ),
+
                               DataCell(
                                 IconButton(
                                   icon: Icon(Icons.edit),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    setState(() {
+                                      isWordIncrementEditing =
+                                          !isWordIncrementEditing;
+                                    });
+                                  },
                                 ),
                               ),
                             ],
                           ),
-                          // DataRow(
-                          //   cells: [
-                          //     const DataCell(Text('預測功能')),
-                          //     DataCell(Text('1')),
-                          //     DataCell(Text('1')),
-                          //   ],
-                          // ),
+
                           DataRow(
                             cells: [
                               const DataCell(Text('上次使用日')),
