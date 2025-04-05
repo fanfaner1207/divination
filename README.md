@@ -26,7 +26,7 @@ samples, guidance on mobile development, and a full API reference.
         歷史紀錄需要可以刪除
         歷史紀錄需要可以永久保存
     * (closed)
-        "抽"的基本功能完成        
+        "抽"的基本功能完成  
         歷史紀錄基本功能完成
         歷史紀錄靠左但要有一點空格
         歷史紀錄"現在沒有喔"隨著抽第一次刪除
@@ -35,14 +35,13 @@ samples, guidance on mobile development, and a full API reference.
    
     
 寫作輔助器
-    * (tracking)
-        UI 編輯數字功能
-            
-        數字加總還沒弄好
+    * (tracking)        
         與桌面小工具還沒有正式介接
         
         預測功能-->之後開發
-    * (closed)
+    * (closed)        
+        每日字數計算
+        UI 編輯數字功能
         query db         
         updata db
         布局調整

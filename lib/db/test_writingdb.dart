@@ -7,7 +7,7 @@ class Writing {
   // id
   final int id;
   // 目前欠的字數
-  late final int wordCount;
+  int wordCount;
   // 每天增加多少字數
   final int dailyWordIncrement;
   // 改變每天增加多少字數的那一天

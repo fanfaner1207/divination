@@ -3,10 +3,6 @@ import 'package:flutter/material.dart';
 // new class
 import '../db/test_writingdb.dart';
 import 'package:flutter/services.dart'; //FilteringTextInputFormatter需要
-/* old class
-// import 'package:divination/model/writing.dart';
-// import '../db/db_writing.dart';
-*/
 
 class WritingAssistant extends StatefulWidget {
   const WritingAssistant({super.key});
@@ -20,104 +16,31 @@ class _WritingAssistantState extends State<WritingAssistant> {
   final inputWordCount = TextEditingController();
   bool isWordIncrementEditing = false;
   final inputsWordIncrement = TextEditingController();
-  /*
-  //todo 從DB撈所有資料(上次登入時間,目前欠的字數,每天增加多少字數)
-  // late Future<TextEditingController> _uploadWordsController; //每天增加多少字數
-  // late DateTime datetimePretime =
-  //     DateTime.now(); //DateTime型別的當前時間 todo應該可以拿掉late
-  // var now = DateTime.now(); //當前時間
-  // 
-  String dropdownValue = '+'; //下拉是選單預設為+
-  final WritingDB _writingDB = WritingDB();
-  /*
-  Future<void> countingWords(int number) async {
-    //final SharedPreferences prefer = await _prefer;
-    // ??檢查變數是否為空，如果變數不為空，則返回變數的值，否則返回指定的默認值。
-    final int currentNumber = (prefer.getInt('counter') ?? 10000) + number;
-
-    setState(() {
-      _currentNumber =
-          prefer.setInt('counter', currentNumber).then((bool success) {
-        success == true
-            ? debugPrint("set counter success")
-            : debugPrint("set counter fail");
-        return currentNumber;
-      });
-    });
-  }
-
-  Future<void> setTime(int time) async {
-    final SharedPreferences prefer = await _prefer;
-    // ??檢查變數是否為空，如果變數不為空，則返回變數的值，否則返回指定的默認值。
-    // final int currentTime = (prefer.getInt('time') ?? DateTime.now().millisecondsSinceEpoch);
-
-    setState(() {
-      prefer.setInt('time', time).then((bool success) {
-        success == true
-            ? debugPrint("set time success")
-            : debugPrint("set time fail");
-        // return time;
-      });
-    });
-  }
-
-  Future<void> setuploadWords(String str) async {
-    final SharedPreferences prefer = await _prefer;
-    // ??檢查變數是否為空，如果變數不為空，則返回變數的值，否則返回指定的默認值。
-
-    setState(() {
-      prefer.setString('uploadWords', str).then((bool success) {
-        success == true
-            ? debugPrint("set time success")
-            : debugPrint("set time fail");
-        // return time;
-      });
-    });
-  }
-*/
-  late Future<List<Writing>>
-  futureWritings; //late允許延遲初始化一個變數，我們需要在initState()中初始化一個變數
-
-  void fetchWritings() {
-    setState(() {
-      futureWritings = _writingDB.fetchAll();
-    });
-  }
-
-
-    /*   
-
-    // _uploadWordsController = _prefer.then((SharedPreferences prefer) {
-    //   return TextEditingController(
-    //       text: prefer.getString('uploadWords') ?? '1');
-    // });
-
-    // _prefer.then((SharedPreferences prefer) {
-    //   // 每天調整
-    //   originalNow =
-    //       (prefer.getInt('time') ?? DateTime.now().millisecondsSinceEpoch);
-    //   datetimePretime = DateTime.fromMillisecondsSinceEpoch(originalNow);
-    //   int days = DateTime.now().day - datetimePretime.day;
-    //   // Duration diff = DateTime.now().difference(datetimePretime);
-
-    //   countingWords(days * int.parse(prefer.getString('uploadWords') ?? '1'));
-    //   setTime(DateTime.now().millisecondsSinceEpoch);
-    // });
-    */
-  }
-
-
-
-*/
 
   late Future<List<Writing>> Future_List_Writing;
 
   Future<List<Writing>> getwritingdata() async {
-    final list = await WritingDB.getWriting();
+    List<Writing> list = await WritingDB.getWriting();
+    // 更新目前字數
+    DateTime today = DateTime.now();
+    DateTime wordIncrementLastChgDateDateTime = DateTime.parse(
+      list[0].wordIncrementLastChgDate,
+    );
+    int daysDifference =
+        today.difference(wordIncrementLastChgDateDateTime).inDays;
+
+    print("調整前");
+    print(list[0].wordCount);
+    list[0].wordCount =
+        list[0].wordCount + daysDifference * list[0].dailyWordIncrement;
+
+    print("調整後");
+    print(list[0].wordCount);
     return list;
   }
 
-  void updatedbDate() async {
+  void updateDate() async {
+    // 更新之前上此使用時間
     String now = DateTime.now().toIso8601String();
     Map<String, dynamic> updateData = {
       'lastUsedDateTime': now,
@@ -134,7 +57,7 @@ class _WritingAssistantState extends State<WritingAssistant> {
   void initState() {
     super.initState();
     Future_List_Writing = getwritingdata();
-    updatedbDate();
+    updateDate();
   }
 
   @override
@@ -155,137 +78,7 @@ class _WritingAssistantState extends State<WritingAssistant> {
                 return Text('Error:${snapshot.error}');
               } else {
                 Writing listArr = snapshot.data![0];
-                /*return Column(children: [
-                  Text(
-                    style: const TextStyle(fontSize: 20, shadows: [
-                      Shadow(
-                          offset: Offset(0.5, 0.5),
-                          blurRadius: 3.0,
-                          color: Colors.grey)
-                    ]),
-                    '目前欠的字數喔：${futureWriting.counter}',
-                    textAlign: TextAlign.center,
-                  ),
-                  OverflowBar(
-                      alignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconButton(
-                          tooltip: "+1000",
-                          icon: const Icon(Icons.add),
-                          onPressed: () {
-                            // countingWords(1000);
-                          },
-                        ),
-                        IconButton(
-                          tooltip: "-1000",
-                          icon: const Icon(Icons.remove),
-                          onPressed: () {
-                            // countingWords(-1000);
-                          },
-                        ),
-                      ]),
-                  Row(
-                    children: [
-                      DropdownButton<String>(
-                        value: dropdownValue,
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            dropdownValue = newValue!; //!是變數的null check
-                          });
-                        },
-                        items: <String>['+', '-']
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                      ),
-                      Expanded(
-                        child: TextField(
-                          controller: inputNumber,
-                          keyboardType: TextInputType.number,
-                          decoration: const InputDecoration(
-                            hintText: '請輸入數字',
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                  TextButton(
-                      onPressed: () {
-                        if (inputNumber.text == '') {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('臭臭寶寶亂按,明明就沒有數字')));
-                        }
-                        
-                      },
-                      // ignore: unnecessary_brace_in_string_interps
-                      child: Text('${dropdownValue}字數')),
-                  Container(
-                      padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
-                      child: Column(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
-                            child: const Row(
-                              children: [
-                                Text('每天增加多少字呢？'),
 
-                                // Expanded(
-                                //   child: FutureBuilder(
-                                //     future: _uploadWordsController,
-                                //     builder: (BuildContext context,
-                                //         AsyncSnapshot<TextEditingController>
-                                //             snapshot) {
-                                //       switch (snapshot.connectionState) {
-                                //         case ConnectionState.none:
-                                //         case ConnectionState.waiting:
-                                //           return const CircularProgressIndicator();
-                                //         case ConnectionState.active:
-                                //         case ConnectionState.done:
-                                //           if (snapshot.hasError) {
-                                //             return Text('Error:${snapshot.error}');
-                                //           } else {
-                                //             return TextField(
-                                //               textAlign: TextAlign.center,
-                                //               controller: snapshot.data,
-                                //               keyboardType: TextInputType.number,
-                                //               onTap: () {
-                                //                 snapshot.data?.selection =
-                                //                     TextSelection(
-                                //                   baseOffset: 0,
-                                //                   extentOffset: snapshot
-                                //                       .data!.value.text.length,
-                                //                 );
-                                //               },
-                                //             );
-                                //           }
-                                //       }
-                                //     },
-                                //   ),
-                                // ),
-                                // IconButton(
-                                //   onPressed: () async {
-                                //     TextEditingController controller =
-                                //         await _uploadWordsController;
-                                //     // setuploadWords(controller.text);
-                                //     // ignore: use_build_context_synchronously
-                                //     ScaffoldMessenger.of(context).showSnackBar(
-                                //         const SnackBar(content: Text('已調整每日要新增的字數')));
-                                //   },
-                                //   icon: const Icon(Icons.check_circle),
-                                // )
-                              ],
-                            ),
-                          ),
-                          // Text(
-                          //   '上次登入時間：${datetimePretime.year}/${datetimePretime.month.toString().padLeft(2, '0')}/${datetimePretime.day.toString().padLeft(2, '0')} ${datetimePretime.hour.toString().padLeft(2, '0')}: ${datetimePretime.minute.toString().padLeft(2, '0')}',
-                          //   textAlign: TextAlign.center,
-                          // ),
-                        ],
-                      )),
-                ]);*/
                 return Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
