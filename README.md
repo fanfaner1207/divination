@@ -20,12 +20,12 @@ samples, guidance on mobile development, and a full API reference.
 
 
 ## ALL ISSUE
-* 占星    
-    (tracking)
+占星    
+    * (tracking)
         抽有延遲顯示的問題需要處理
         歷史紀錄需要可以刪除
         歷史紀錄需要可以永久保存
-    (closed)
+    * (closed)
         "抽"的基本功能完成        
         歷史紀錄基本功能完成
         歷史紀錄靠左但要有一點空格
@@ -34,21 +34,31 @@ samples, guidance on mobile development, and a full API reference.
         歷史紀錄要有時間
    
     
-* 寫作輔助器
-    (tracking)
-        布局調整
-            目前字數
-            增加字數(字/天)
-            預測功能-->之後開發
-            上次登入日
-            上次登入時間
+寫作輔助器
+    * (tracking)
+        UI 編輯數字功能
             
         數字加總還沒弄好
         與桌面小工具還沒有正式介接
-    (closed)
+        
+        預測功能-->之後開發
+    * (closed)
+        query db         
+        updata db
+        布局調整
+            目前字數
+            增加字數(字/天)
+            上次使用完整時間
+            上次使用日
+            上次使用時間
 
-* 其他
-    (tracking)
+其他
+    * (info)
+        flutter create sqlite教學
+            https://penueling.com/%e7%b7%9a%e4%b8%8a%e5%ad%b8%e7%bf%92/flutter-%e4%bd%bf%e7%94%a8-sqlite-%e6%9c%ac%e5%9c%b0%e8%b3%87%e6%96%99%e5%ba%ab/
+
+
+    * (tracking)
         app的icon沒有正常顯示
         E:\dev\divination\lib\tabs\overlay_page.dart
             *withOpacity要被捨棄了，需要改寫
@@ -60,7 +70,7 @@ samples, guidance on mobile development, and a full API reference.
                     bottom: MediaQuery.of(context).size.height * 0.1,
                     left: MediaQuery.of(context).size.width * 0.1,
                     right: MediaQuery.of(context).size.width * 0.1,
-    (closed)
+    * (closed)
         Android NDK 27.0.12077973
             Your project is configured with Android NDK 26.3.11579264, but the following plugin(s) depend on a different Android NDK version:
             fluttertoast requires Android NDK 27.0.12077973

@@ -1,3 +1,4 @@
+// 創建一個schema
 class Writing {
   final int id;
   // 上次登入時間

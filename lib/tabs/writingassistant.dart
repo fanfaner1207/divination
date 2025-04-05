@@ -1,7 +1,12 @@
-import 'dart:async';
-import 'package:divination/model/writing.dart';
+// import 'dart:async';
 import 'package:flutter/material.dart';
-import '../db/db_writing.dart';
+// new class
+import '../db/test_writingdb.dart';
+
+/* old class
+// import 'package:divination/model/writing.dart';
+// import '../db/db_writing.dart';
+*/
 
 class WritingAssistant extends StatefulWidget {
   const WritingAssistant({super.key});
@@ -11,6 +16,7 @@ class WritingAssistant extends StatefulWidget {
 }
 
 class _WritingAssistantState extends State<WritingAssistant> {
+  /*
   //todo 從DB撈所有資料(上次登入時間,目前欠的字數,每天增加多少字數)
   // late Future<TextEditingController> _uploadWordsController; //每天增加多少字數
   // late DateTime datetimePretime =
@@ -74,10 +80,7 @@ class _WritingAssistantState extends State<WritingAssistant> {
     });
   }
 
-  @override
-  void initState() {
-    super.initState();
-    fetchWritings();
+
     /*   
 
     // _uploadWordsController = _prefer.then((SharedPreferences prefer) {
@@ -99,14 +102,44 @@ class _WritingAssistantState extends State<WritingAssistant> {
     */
   }
 
-  //顯示時間問題
+
+
+*/
+
+  late Future<List<Writing>> Future_List_Writing;
+
+  Future<List<Writing>> getwritingdata() async {
+    final list = await WritingDB.getWriting();
+    return list;
+  }
+
+  void updatedbDate() async {
+    String now = DateTime.now().toIso8601String();
+    Map<String, dynamic> updateData = {
+      'lastUsedDateTime': now,
+      'lastUsedDate': now.split('T')[0], // 提取日期部分
+      'lastUsedTime': now.split('T')[1].split('.')[0], // 提取時間部分
+      // 'lastUsedTime': "1",
+    };
+    setState(() {
+      WritingDB.updateWriting(updateData);
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    Future_List_Writing = getwritingdata();
+    updatedbDate();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(10),
       padding: const EdgeInsets.fromLTRB(25, 5, 25, 5),
       child: FutureBuilder(
-        future: futureWritings,
+        future: Future_List_Writing,
         builder: (BuildContext context, AsyncSnapshot<List<Writing>> snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.none:
@@ -117,7 +150,7 @@ class _WritingAssistantState extends State<WritingAssistant> {
               if (snapshot.hasError) {
                 return Text('Error:${snapshot.error}');
               } else {
-                final futureWriting = snapshot.data![0];
+                final listArr = snapshot.data![0];
                 /*return Column(children: [
                   Text(
                     style: const TextStyle(fontSize: 20, shadows: [
@@ -283,7 +316,7 @@ class _WritingAssistantState extends State<WritingAssistant> {
                           DataRow(
                             cells: [
                               const DataCell(Text('目前字數')),
-                              DataCell(Text('1')),
+                              DataCell(Text(listArr.wordCount.toString())),
                               DataCell(
                                 IconButton(
                                   icon: Icon(Icons.edit),
@@ -295,7 +328,9 @@ class _WritingAssistantState extends State<WritingAssistant> {
                           DataRow(
                             cells: [
                               const DataCell(Text('增加字數(字/天)')),
-                              DataCell(Text('1')),
+                              DataCell(
+                                Text(listArr.dailyWordIncrement.toString()),
+                              ),
                               DataCell(
                                 IconButton(
                                   icon: Icon(Icons.edit),
@@ -313,8 +348,8 @@ class _WritingAssistantState extends State<WritingAssistant> {
                           // ),
                           DataRow(
                             cells: [
-                              const DataCell(Text('上次登入日')),
-                              DataCell(Text('1')),
+                              const DataCell(Text('上次使用日')),
+                              DataCell(Text(listArr.lastUsedDate)),
                               DataCell(
                                 SizedBox.shrink(),
                               ), //直接提供空白 widget 可以避免表格生成時因為缺少資料而拋出錯誤。
@@ -322,8 +357,8 @@ class _WritingAssistantState extends State<WritingAssistant> {
                           ),
                           DataRow(
                             cells: [
-                              const DataCell(Text('上次登入時間')),
-                              DataCell(Text('1')),
+                              const DataCell(Text('上次使用時間')),
+                              DataCell(Text(listArr.lastUsedTime)),
                               DataCell(
                                 SizedBox.shrink(),
                               ), //直接提供空白 widget 可以避免表格生成時因為缺少資料而拋出錯誤。
