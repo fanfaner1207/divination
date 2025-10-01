@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 新增小工具配置 (AppWidgetProviderInfo) -->
+<!-- 作用: 定義小工具的屬性，像是它的外觀、更新頻率、最小尺寸等。可以把它看作是小工具的「藍圖」。 -->
+
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+  android:minWidth="80dp"
+  android:minHeight="40dp"
+  android:updatePeriodMillis="86400000"
+  android:initialLayout="@layout/widget_layout"
+  android:resizeMode="horizontal|vertical"
+  android:widgetCategory="home_screen" />
+<!-- android:minWidth / android:minHeight：定義小工具在桌面上佔用的最小尺寸。 -->
+<!-- android:updatePeriodMillis="86400000"：設定小工具自動更新的頻率。86,400,000 毫秒 = 24 小時。 -->
+<!-- android:initialLayout="@layout/widget_layout"：指定小工具的 UI 佈局來自 res/layout/widget_layout.xml 檔案。 -->
+<!-- android:resizeMode="horizontal|vertical"：允許使用者在桌面上自由調整小工具的水平和垂直大小。 -->
+<!-- android:widgetCategory="home_screen"：表示這是一個放置在主螢幕上的小工具。 -->

@@ -36,7 +36,8 @@ class _MystatefulwidgetState extends State<Mystatefulwidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('小玉妹妹&釩哥哥的天地', textAlign: TextAlign.center),
+        // title: const Text('小玉妹妹&釩哥哥的天地', textAlign: TextAlign.center),
+        title: const Text('Testing title', textAlign: TextAlign.center),
         backgroundColor: const Color.fromARGB(255, 233, 166, 197),
       ),
       body: Center(child: _widgetOptions.elementAt(_setectedIndex)),

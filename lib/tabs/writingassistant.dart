@@ -1,7 +1,6 @@
 // import 'dart:async';
 import 'package:flutter/material.dart';
-// new class
-import '../db/test_writingdb.dart';
+import '../db/writingdb.dart';
 import 'package:flutter/services.dart'; //FilteringTextInputFormatter需要
 
 class WritingAssistant extends StatefulWidget {
@@ -17,7 +16,7 @@ class _WritingAssistantState extends State<WritingAssistant> {
   bool isWordIncrementEditing = false;
   final inputsWordIncrement = TextEditingController();
 
-  late Future<List<Writing>> Future_List_Writing;
+  late Future<List<Writing>> futureListWriting;
 
   Future<List<Writing>> getwritingdata() async {
     List<Writing> list = await WritingDB.getWriting();
@@ -25,17 +24,19 @@ class _WritingAssistantState extends State<WritingAssistant> {
     DateTime today = DateTime.now();
     DateTime wordIncrementLastChgDateDateTime = DateTime.parse(
       list[0].wordIncrementLastChgDate,
-    );
+    ); 
     int daysDifference =
         today.difference(wordIncrementLastChgDateDateTime).inDays;
 
-    print("調整前");
-    print(list[0].wordCount);
     list[0].wordCount =
         list[0].wordCount + daysDifference * list[0].dailyWordIncrement;
 
-    print("調整後");
-    print(list[0].wordCount);
+    await WritingDB.updateWriting({
+      'wordCount': list[0].wordCount,
+      'wordIncrementLastChgDate':
+          DateTime.now().toIso8601String().split('T')[0],
+    });
+
     return list;
   }
 
@@ -43,10 +44,8 @@ class _WritingAssistantState extends State<WritingAssistant> {
     // 更新之前上此使用時間
     String now = DateTime.now().toIso8601String();
     Map<String, dynamic> updateData = {
-      'lastUsedDateTime': now,
       'lastUsedDate': now.split('T')[0], // 提取日期部分
       'lastUsedTime': now.split('T')[1].split('.')[0], // 提取時間部分
-      // 'lastUsedTime': "1",
     };
     setState(() {
       WritingDB.updateWriting(updateData);
@@ -56,7 +55,7 @@ class _WritingAssistantState extends State<WritingAssistant> {
   @override
   void initState() {
     super.initState();
-    Future_List_Writing = getwritingdata();
+    futureListWriting = getwritingdata();
     updateDate();
   }
 
@@ -66,7 +65,7 @@ class _WritingAssistantState extends State<WritingAssistant> {
       margin: const EdgeInsets.all(10),
       padding: const EdgeInsets.fromLTRB(25, 5, 25, 5),
       child: FutureBuilder(
-        future: Future_List_Writing,
+        future: futureListWriting,
         builder: (BuildContext context, AsyncSnapshot<List<Writing>> snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.none:
@@ -125,9 +124,13 @@ class _WritingAssistantState extends State<WritingAssistant> {
                                         if (value.isNotEmpty) {
                                           await WritingDB.updateWriting({
                                             'wordCount': int.parse(value),
+                                            'wordIncrementLastChgDate':
+                                                DateTime.now()
+                                                    .toIso8601String()
+                                                    .split('T')[0],
                                           });
                                           setState(() {
-                                            Future_List_Writing =
+                                            futureListWriting =
                                                 getwritingdata();
 
                                             isWordCountEditing =
@@ -178,7 +181,7 @@ class _WritingAssistantState extends State<WritingAssistant> {
                                                     .split('T')[0],
                                           });
                                           setState(() {
-                                            Future_List_Writing =
+                                            futureListWriting =
                                                 getwritingdata();
 
                                             isWordIncrementEditing =

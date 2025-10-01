@@ -1,0 +1,25 @@
+// .devcontainer/devcontainer.json
+{
+    "name": "Flutter Dev Container",
+    "image": "instrumentisto/flutter:latest", 
+
+    "runArgs": [
+        "--name=dev_container",
+        "--add-host=host.docker.internal:host-gateway"
+    ],
+    
+    // ⭐ 新增或確認 mounts 配置 ⭐
+    "mounts": [
+        "source=${localWorkspaceFolder},target=/app,type=bind"
+    ],
+
+    // 設定工作目錄為 /app (與 mount 的 target 一致)
+    "workspaceFolder": "/app", 
+    
+    "extensions": [
+        "dart-code.dart-code",
+        "dart-code.flutter"
+    ],
+
+    "postCreateCommand":"flutter doctor;flutter pub get"
+}

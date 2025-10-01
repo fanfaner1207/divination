@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 新增小工具佈局 (XML Layout) -->
+<!-- 作用: 定義小工具的外觀（使用 原生 Android XML 佈局，僅支援有限元件，如 TextView、Button 等）。 -->
+
+<!-- match_parent填滿小工具寬度 -->
+<!-- gravity="center"      水平+垂直居中 -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" 
+    android:layout_height="match_parent"
+    android:gravity="center"  
+    android:background="#FFFFFF"
+    android:orientation="vertical">
+
+    <!-- 顯示文字的元件 -->
+    <TextView
+        android:id="@+id/widget_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Default Text"      
+        android:textColor="#000000" />
+
+    <!-- 可點擊的按鈕 -->
+    <!-- 
+    android:minWidth="0dp"                                  取消最小寬度限制
+    android:minHeight="0dp"                                 取消最小高度限制
+    android:padding="4dp"                                   內編距
+    -->
+    <Button
+        android:id="@+id/widget_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="↻"
+        android:minWidth="0dp"          
+        android:minHeight="0dp"                        
+        android:padding="4dp"  />          
+                                
+    <!--android:textSize="30sp" -->           
+
+</LinearLayout>

@@ -30,6 +30,26 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        
+        <!-- 在 AndroidManifest.xml 註冊小工具 -->
+        <!-- 作用: 告訴系統這個小工具的存在。 -->
+        <receiver
+            android:name=".MyWidget"
+            android:exported="false"
+            android:label="My Flutter Widget">
+            <intent-filter>
+                <!-- android:name=".MyWidget"：指定這個小工具的邏輯由 MyWidget.kt 類別處理。 -->
+                <!-- android.appwidget.action.APPWIDGET_UPDATE：一個標準的系統動作。當小工具初次被放置、到達更新時間、或手機重啟時，系統會發送此廣播。 -->
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <!-- CLICK_ACTION：自定義的動作，專門用來接收和處理小工具上按鈕的點擊事件。 -->
+                <action android:name="CLICK_ACTION" />
+            </intent-filter>
+            <!-- 指向小工具的詳細設定檔 (widget_info.xml)，定義其外觀、更新頻率等。 -->
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_info" />
+        </receiver>
+
     </application>
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility and

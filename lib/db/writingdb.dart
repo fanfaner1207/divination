@@ -10,20 +10,18 @@ class Writing {
   int wordCount;
   // 每天增加多少字數
   final int dailyWordIncrement;
-  // 改變每天增加多少字數的那一天
+  
+  // 控制字數的使用時間(for app and home widget)
   final String wordIncrementLastChgDate;
-  // 上次使用完整時間
-  final String lastUsedDateTime;
-  // 上次使用日
+  // 上次使用日(for app)
   final String lastUsedDate;
-  // 上次使用時間
+  // 上次使用時間(for app)
   final String lastUsedTime;
   Writing({
     required this.id,
     required this.wordCount,
     required this.dailyWordIncrement,
     required this.wordIncrementLastChgDate,
-    required this.lastUsedDateTime,
     required this.lastUsedDate,
     required this.lastUsedTime,
   });
@@ -35,7 +33,6 @@ class Writing {
       'wordCount': wordCount,
       'dailyWordIncrement': dailyWordIncrement,
       'wordIncrementLastChgDate': wordIncrementLastChgDate,
-      'lastUsedDateTime': lastUsedDateTime,
       'lastUsedDate': lastUsedDate,
       'lastUsedTime': lastUsedTime,
     };
@@ -100,7 +97,6 @@ class WritingDB {
     final List<Map<String, dynamic>> maps = await db.query(
       tableName,
     ); //query裡面放的是table名稱
-    print(maps);
     return List.generate(maps.length, (i) {
       //List.generate根據指定的長度和生成邏輯創建一個list的方法
       return Writing(
@@ -108,7 +104,6 @@ class WritingDB {
         wordCount: maps[i]['wordCount'],
         dailyWordIncrement: maps[i]['dailyWordIncrement'],
         wordIncrementLastChgDate: maps[i]['wordIncrementLastChgDate'],
-        lastUsedDateTime: maps[i]['lastUsedDateTime'],
         lastUsedDate: maps[i]['lastUsedDate'],
         lastUsedTime: maps[i]['lastUsedTime'],
       );
