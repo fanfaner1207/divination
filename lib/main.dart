@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'tabs/astrology.dart';
 import 'tabs/writingassistant.dart';
+import 'tabs/weeklytracker.dart';
 
 void main() {
   runApp(MyApp());
@@ -30,14 +31,13 @@ class Mystatefulwidget extends StatefulWidget {
 class _MystatefulwidgetState extends State<Mystatefulwidget> {
   int _setectedIndex = 0;
 
-  static const List _widgetOptions = [Astrology(), WritingAssistant()];
+  static const List _widgetOptions = [Astrology(), WritingAssistant(),WeeklyTracker()];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // title: const Text('小玉妹妹&釩哥哥的天地', textAlign: TextAlign.center),
-        title: const Text('Testing title', textAlign: TextAlign.center),
+        title: const Text('寶貝專屬APP', textAlign: TextAlign.center),
         backgroundColor: const Color.fromARGB(255, 233, 166, 197),
       ),
       body: Center(child: _widgetOptions.elementAt(_setectedIndex)),
@@ -45,6 +45,7 @@ class _MystatefulwidgetState extends State<Mystatefulwidget> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.star), label: '占星'),
           BottomNavigationBarItem(icon: Icon(Icons.star), label: '寫作輔助器'),
+          BottomNavigationBarItem(icon: Icon(Icons.star), label: '點品計次器'),
         ],
         currentIndex: _setectedIndex,
         selectedItemColor: const Color.fromRGBO(234, 100, 163, 1),
