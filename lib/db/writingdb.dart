@@ -9,21 +9,20 @@ class Writing {
   // 目前欠的字數
   int wordCount;
   // 每天增加多少字數
-  final int dailyWordIncrement;
-  
-  // 控制字數的使用時間(for app and home widget)
-  final String wordIncrementLastChgDate;
-  // 上次使用日(for app)
-  final String lastUsedDate;
-  // 上次使用時間(for app)
-  final String lastUsedTime;
+  //final int dailyWordIncrement;
+
+  // 小說比賽截止日
+  final String? deadlineDate;
+
+  // 上次使用時間(for app and home widget)
+  final String? lastUsedDateTime;
+
   Writing({
     required this.id,
     required this.wordCount,
-    required this.dailyWordIncrement,
-    required this.wordIncrementLastChgDate,
-    required this.lastUsedDate,
-    required this.lastUsedTime,
+    // required this.dailyWordIncrement,
+    this.deadlineDate,
+    this.lastUsedDateTime,
   });
 
   // 為了產出可以直接使用的資料，所以return出Map的格式
@@ -31,10 +30,9 @@ class Writing {
     return {
       'id': id,
       'wordCount': wordCount,
-      'dailyWordIncrement': dailyWordIncrement,
-      'wordIncrementLastChgDate': wordIncrementLastChgDate,
-      'lastUsedDate': lastUsedDate,
-      'lastUsedTime': lastUsedTime,
+      // 'dailyWordIncrement': dailyWordIncrement,
+      'deadlineDate': deadlineDate,
+      'lastUsedDateTime': lastUsedDateTime,
     };
   }
 }
@@ -44,37 +42,45 @@ class WritingDB {
   static late Database database;
   static String tableName = 'writing';
 
-  static Future<Database> initDatabase() async {
-    // 完全刪除現有DB
-    // deleteDatabase(join(await getDatabasesPath(), "writing.DB"));
-
-    database = await openDatabase(
-      join(await getDatabasesPath(), "writing.DB"),
-
-      //創建table
-      onCreate: (db, version) async {
-        await db.execute('''
+  // 建立一個私有函式來處理資料表的建立與初始資料的插入
+  static Future<void> _createTableAndSeed(Database db) async {
+    await db.execute('''
       CREATE TABLE IF NOT EXISTS $tableName (
         id INTEGER PRIMARY KEY,
         wordCount INTEGER,
         dailyWordIncrement INTEGER,
-        wordIncrementLastChgDate TEXT,
-        lastUsedDateTime TEXT,
-        lastUsedDate TEXT,
-        lastUsedTime TEXT)''');
-        // 插入第一筆資料
-        await db.insert(tableName, {
-          'id': 1,
-          'wordCount': 10000,
-          'dailyWordIncrement': 0,
-          'wordIncrementLastChgDate':
-              DateTime.now().toIso8601String().split('T')[0],
-          'lastUsedDateTime': "NA",
-          'lastUsedDate': "NA", // 提取日期部分
-          'lastUsedTime': "NA", // 提取時間部分
-        });
+        deadlineDate TEXT,
+        lastUsedDateTime TEXT
+      )''');
+    // 插入第一筆資料
+    await db.insert(tableName, {
+      'id': 1,
+      'wordCount': 10000,
+      'dailyWordIncrement': 0,
+      'deadlineDate': DateTime.now().toIso8601String().split('T')[0],
+      'lastUsedDateTime': DateTime.now().toIso8601String(),
+    });
+  }
+
+  static Future<Database> initDatabase() async {
+    // 完全刪除現有DB
+    // deleteDatabase(join(await getDatabasesPath(), "writing.DB"));
+    database = await openDatabase(
+      join(await getDatabasesPath(), "writing.DB"),
+
+      //onCreate用於「全新安裝」的使用者。它會建立 新 的資料庫結構。
+      onCreate: (db, version) async {
+        await _createTableAndSeed(db);
       },
-      version: 1,
+      // onUpgrade 用於「升級」現有使用者。當 version 號碼增加時，它會執行。
+      // 根據您的需求，這裡會刪除舊資料表並重建。
+      onUpgrade: (db, oldVersion, newVersion) async {
+        // 1. 刪除現有的資料表
+        await db.execute('DROP TABLE IF EXISTS $tableName');
+        // 2. 呼叫共用函式來重新建立資料表與初始資料
+        await _createTableAndSeed(db);
+      },
+      version: 2,
     );
     return database;
   }
@@ -102,10 +108,9 @@ class WritingDB {
       return Writing(
         id: maps[i]['id'],
         wordCount: maps[i]['wordCount'],
-        dailyWordIncrement: maps[i]['dailyWordIncrement'],
-        wordIncrementLastChgDate: maps[i]['wordIncrementLastChgDate'],
-        lastUsedDate: maps[i]['lastUsedDate'],
-        lastUsedTime: maps[i]['lastUsedTime'],
+        // dailyWordIncrement: maps[i]['dailyWordIncrement'],
+        deadlineDate: maps[i]['deadlineDate'] ?? '', // 如果為 null，則給予空字串
+        lastUsedDateTime: maps[i]['lastUsedDateTime'] ?? '', // 如果為 null，則給予空字串
       );
     });
   }

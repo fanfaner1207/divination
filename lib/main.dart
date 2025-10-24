@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'tabs/astrology.dart';
 import 'tabs/writingassistant.dart';
 import 'tabs/weeklytracker.dart';
@@ -17,6 +18,14 @@ class MyApp extends StatelessWidget {
         fontFamily: "NotoSansTC",
       ),
       home: const Mystatefulwidget(),
+      localizationsDelegates: [  
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+       supportedLocales: [        
+        const Locale('zh', 'TW'),
+      ],
+      locale: Locale('zh', 'TW')
     );
   }
 }

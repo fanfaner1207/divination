@@ -25,7 +25,7 @@ class MyWidget : AppWidgetProvider()
         const val DATABASE_NAME = "writing.DB" // 資料庫名稱
         const val DATABASE_TABLE = "writing"   
         const val COLUMN_WORDCOUNT = "wordCount"       
-        const val COLUMN_LASTUSEDDATE = "lastUsedDate"
+        const val COLUMN_LASTUSEDDATE = "lastUsedDateTime"
         const val COLUMN_DAILYWORDINCREMENT = "dailyWordIncrement"
         
         val BUTTON_ID = R.id.widget_button // 按鈕在 widget_layout.xml 中的 ID 是 Button
@@ -195,4 +195,3 @@ class MyWidget : AppWidgetProvider()
       
     }
 }
-
